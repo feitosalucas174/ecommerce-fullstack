@@ -64,18 +64,18 @@ export default function AdminRelatoriosPage() {
 
   return (
     <div className="space-y-8">
-      <h1 className="text-2xl font-bold text-gray-900">Relatórios</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Relatórios</h1>
 
       {/* Sales chart */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
+      <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-sm">
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-bold text-gray-900">Vendas por Período</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">Vendas por Período</h2>
           <div className="flex gap-2">
             {(["day", "week", "month"] as Period[]).map((p) => (
               <button
                 key={p}
                 onClick={() => setPeriod(p)}
-                className={`rounded-full px-3 py-1 text-sm font-medium ${period === p ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+                className={`rounded-full px-3 py-1 text-sm font-medium ${period === p ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"}`}
               >
                 {p === "day" ? "Diário" : p === "week" ? "Semanal" : "Mensal"}
               </button>
@@ -83,32 +83,32 @@ export default function AdminRelatoriosPage() {
           </div>
         </div>
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl bg-gray-100" />
+          <div className="h-64 animate-pulse rounded-xl bg-gray-100 dark:bg-gray-700" />
         ) : salesData.length === 0 ? (
-          <p className="py-12 text-center text-gray-400">Sem dados de vendas para este período.</p>
+          <p className="py-12 text-center text-gray-400 dark:text-gray-500">Sem dados de vendas para este período.</p>
         ) : (
           <VendasChart data={salesData} />
         )}
       </div>
 
       {/* Top products */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-gray-900">Top 5 Produtos Mais Vendidos</h2>
+      <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-sm">
+        <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">Top 5 Produtos Mais Vendidos</h2>
         {isLoading ? (
-          <div className="h-64 animate-pulse rounded-xl bg-gray-100" />
+          <div className="h-64 animate-pulse rounded-xl bg-gray-100 dark:bg-gray-700" />
         ) : topProducts.length === 0 ? (
-          <p className="py-12 text-center text-gray-400">Sem dados de vendas ainda.</p>
+          <p className="py-12 text-center text-gray-400 dark:text-gray-500">Sem dados de vendas ainda.</p>
         ) : (
           <EstoqueChart data={topProducts} />
         )}
       </div>
 
       {/* Stock alerts */}
-      <div className="rounded-xl bg-white p-6 shadow-sm">
-        <h2 className="mb-4 text-lg font-bold text-gray-900">
+      <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-sm">
+        <h2 className="mb-4 text-lg font-bold text-gray-900 dark:text-white">
           Alertas de Estoque
           {stockAlerts.length > 0 && (
-            <span className="ml-2 rounded-full bg-red-100 px-2 py-0.5 text-sm font-medium text-red-700">
+            <span className="ml-2 rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-sm font-medium text-red-700 dark:text-red-300">
               {stockAlerts.length}
             </span>
           )}

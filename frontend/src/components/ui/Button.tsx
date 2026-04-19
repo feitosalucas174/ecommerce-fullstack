@@ -11,13 +11,13 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<Variant, string> = {
   primary:
-    "bg-gray-900 hover:bg-gray-800 active:bg-black text-white shadow-sm hover:shadow-md disabled:bg-gray-300",
+    "bg-gray-900 hover:bg-gray-800 dark:bg-blue-600 dark:hover:bg-blue-700 text-white shadow-sm hover:shadow-md disabled:opacity-50",
   secondary:
-    "bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 hover:border-gray-300 shadow-sm disabled:opacity-60",
+    "bg-white dark:bg-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 hover:border-gray-300 shadow-sm disabled:opacity-60",
   danger:
-    "bg-red-600 hover:bg-red-700 text-white shadow-sm disabled:bg-red-300",
+    "bg-red-600 hover:bg-red-700 text-white shadow-sm disabled:opacity-50",
   ghost:
-    "bg-transparent hover:bg-gray-100 text-gray-600 hover:text-gray-900",
+    "bg-transparent hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100",
 };
 
 const sizeClasses: Record<Size, string> = {
@@ -40,8 +40,8 @@ export function Button({
       className={`
         inline-flex items-center justify-center gap-2 rounded-xl font-semibold
         transition-all duration-150 focus:outline-none focus:ring-2
-        focus:ring-gray-900/20 focus:ring-offset-2 disabled:cursor-not-allowed
-        active:scale-[0.97]
+        focus:ring-gray-900/20 dark:focus:ring-blue-500/40 focus:ring-offset-2 dark:focus:ring-offset-gray-800
+        disabled:cursor-not-allowed active:scale-[0.97]
         ${variantClasses[variant]} ${sizeClasses[size]} ${className}
       `}
       disabled={disabled || isLoading}

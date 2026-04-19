@@ -57,8 +57,8 @@ export default function AdminEstoquePage() {
       header: "Produto",
       render: (p: Product) => (
         <div>
-          <p className="font-medium text-gray-900">{p.name}</p>
-          <p className="text-xs text-gray-400">{CATEGORY_LABELS[p.category]}</p>
+          <p className="font-medium text-gray-900 dark:text-gray-100">{p.name}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">{CATEGORY_LABELS[p.category]}</p>
         </div>
       ),
     },
@@ -74,17 +74,17 @@ export default function AdminEstoquePage() {
     {
       key: "min_stock_alert",
       header: "Mínimo",
-      render: (p: Product) => <span className="text-gray-600">{p.min_stock_alert}</span>,
+      render: (p: Product) => <span className="text-gray-600 dark:text-gray-400">{p.min_stock_alert}</span>,
     },
     {
       key: "status",
       header: "Status",
       render: (p: Product) => {
         if (p.stock_quantity === 0)
-          return <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-semibold text-red-700">Esgotado</span>;
+          return <span className="rounded-full bg-red-100 dark:bg-red-900/30 px-2 py-0.5 text-xs font-semibold text-red-700 dark:text-red-300">Esgotado</span>;
         if (p.is_low_stock)
-          return <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-semibold text-amber-700">⚠ Crítico</span>;
-        return <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-semibold text-green-700">OK</span>;
+          return <span className="rounded-full bg-amber-100 dark:bg-amber-900/30 px-2 py-0.5 text-xs font-semibold text-amber-700 dark:text-amber-300">⚠ Crítico</span>;
+        return <span className="rounded-full bg-green-100 dark:bg-green-900/30 px-2 py-0.5 text-xs font-semibold text-green-700 dark:text-green-300">OK</span>;
       },
     },
     {
@@ -103,9 +103,9 @@ export default function AdminEstoquePage() {
   return (
     <div>
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Gestão de Estoque</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Gestão de Estoque</h1>
         {alerts > 0 && (
-          <span className="rounded-full bg-red-100 px-3 py-1 text-sm font-semibold text-red-700">
+          <span className="rounded-full bg-red-100 dark:bg-red-900/30 px-3 py-1 text-sm font-semibold text-red-700 dark:text-red-300">
             {alerts} produto(s) em estado crítico
           </span>
         )}

@@ -63,8 +63,8 @@ export default function AdminProdutosPage() {
       header: "Nome",
       render: (p: Product) => (
         <div>
-          <p className="font-medium text-gray-900">{p.name}</p>
-          <p className="text-xs text-gray-400">{CATEGORY_LABELS[p.category]}</p>
+          <p className="font-medium text-gray-900 dark:text-gray-100">{p.name}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">{CATEGORY_LABELS[p.category]}</p>
         </div>
       ),
     },
@@ -91,7 +91,7 @@ export default function AdminProdutosPage() {
       key: "is_active",
       header: "Status",
       render: (p: Product) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${p.is_active ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}`}>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${p.is_active ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300" : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"}`}>
           {p.is_active ? "Ativo" : "Inativo"}
         </span>
       ),
@@ -121,7 +121,7 @@ export default function AdminProdutosPage() {
   return (
     <div>
       <div className="mb-6 flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-900">Produtos</h1>
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Produtos</h1>
         <Button onClick={() => { setEditing(null); setModalOpen(true); }}>
           + Novo Produto
         </Button>

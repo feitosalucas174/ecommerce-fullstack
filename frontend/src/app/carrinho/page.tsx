@@ -15,13 +15,13 @@ export default function CarrinhoPage() {
       <>
         <Header />
         <main className="mx-auto max-w-3xl px-4 py-20 text-center">
-          <div className="mb-6 text-gray-300">
+          <div className="mb-6 text-gray-300 dark:text-gray-600">
             <svg className="mx-auto h-24 w-24" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
             </svg>
           </div>
-          <h1 className="text-2xl font-bold text-gray-900">Seu carrinho está vazio</h1>
-          <p className="mt-2 text-gray-500">Adicione produtos para continuar.</p>
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Seu carrinho está vazio</h1>
+          <p className="mt-2 text-gray-500 dark:text-gray-400">Adicione produtos para continuar.</p>
           <Link href="/produtos">
             <Button className="mt-6">Explorar produtos</Button>
           </Link>
@@ -35,7 +35,7 @@ export default function CarrinhoPage() {
     <>
       <Header />
       <main className="mx-auto max-w-5xl px-4 py-8">
-        <h1 className="mb-6 text-3xl font-bold text-gray-900">Carrinho</h1>
+        <h1 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">Carrinho</h1>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Items */}
@@ -52,9 +52,9 @@ export default function CarrinhoPage() {
           </div>
 
           {/* Summary */}
-          <div className="rounded-xl border bg-white p-6 shadow-sm h-fit">
-            <h2 className="text-lg font-bold text-gray-900">Resumo do Pedido</h2>
-            <div className="mt-4 space-y-2 text-sm text-gray-600">
+          <div className="rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm h-fit">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Resumo do Pedido</h2>
+            <div className="mt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
               <div className="flex justify-between">
                 <span>Subtotal ({totalItems} {totalItems === 1 ? "item" : "itens"})</span>
                 <span>R$ {totalPrice.toFixed(2).replace(".", ",")}</span>
@@ -63,7 +63,7 @@ export default function CarrinhoPage() {
                 <span>Frete</span>
                 <span className="text-green-600">Grátis</span>
               </div>
-              <div className="border-t pt-2 flex justify-between text-base font-bold text-gray-900">
+              <div className="border-t dark:border-gray-700 pt-2 flex justify-between text-base font-bold text-gray-900 dark:text-white">
                 <span>Total</span>
                 <span>R$ {totalPrice.toFixed(2).replace(".", ",")}</span>
               </div>

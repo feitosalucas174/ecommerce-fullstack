@@ -10,12 +10,15 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { SalesData } from "@/types";
+import { useTheme } from "@/contexts/ThemeContext";
 
 interface VendasChartProps {
   data: SalesData[];
 }
 
 export function VendasChart({ data }: VendasChartProps) {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
   const formatted = data.map((d) => ({
     ...d,
     period: new Date(d.period + "T00:00:00").toLocaleDateString("pt-BR", {
@@ -34,13 +37,14 @@ export function VendasChart({ data }: VendasChartProps) {
             <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid strokeDasharray="3 3" stroke="#f0f0f0" />
-        <XAxis dataKey="period" tick={{ fontSize: 11 }} />
+        <CartesianGrid strokeDasharray="3 3" stroke={isDark ? "#374151" : "#f0f0f0"} />
+        <XAxis dataKey="period" tick={{ fontSize: 11, fill: isDark ? "#9ca3af" : "#6b7280" }} />
         <YAxis
-          tick={{ fontSize: 11 }}
+          tick={{ fontSize: 11, fill: isDark ? "#9ca3af" : "#6b7280" }}
           tickFormatter={(v) => `R$${v}`}
         />
         <Tooltip
+          contentStyle={{ backgroundColor: isDark ? "#1f2937" : "#fff", border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`, borderRadius: "8px", color: isDark ? "#f3f4f6" : "#111827" }}
           formatter={(value: number) => [
             `R$ ${value.toFixed(2).replace(".", ",")}`,
             "Vendas",

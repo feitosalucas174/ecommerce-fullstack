@@ -40,8 +40,8 @@ export default function AdminUsuariosPage() {
       header: "Usuário",
       render: (u: User) => (
         <div>
-          <p className="font-medium text-gray-900">{u.username}</p>
-          <p className="text-xs text-gray-400">{u.email}</p>
+          <p className="font-medium text-gray-900 dark:text-gray-100">{u.username}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">{u.email}</p>
         </div>
       ),
     },
@@ -49,7 +49,7 @@ export default function AdminUsuariosPage() {
       key: "name",
       header: "Nome",
       render: (u: User) => (
-        <span className="text-gray-700">
+        <span className="text-gray-700 dark:text-gray-300">
           {[u.first_name, u.last_name].filter(Boolean).join(" ") || "—"}
         </span>
       ),
@@ -58,7 +58,7 @@ export default function AdminUsuariosPage() {
       key: "role",
       header: "Perfil",
       render: (u: User) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${u.role === "admin" ? "bg-purple-100 text-purple-800" : "bg-gray-100 text-gray-700"}`}>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${u.role === "admin" ? "bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300"}`}>
           {u.role === "admin" ? "Admin" : "Cliente"}
         </span>
       ),
@@ -67,7 +67,7 @@ export default function AdminUsuariosPage() {
       key: "date_joined",
       header: "Cadastro",
       render: (u: User) => (
-        <span className="text-sm text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-gray-400">
           {new Date(u.date_joined).toLocaleDateString("pt-BR")}
         </span>
       ),
@@ -89,7 +89,7 @@ export default function AdminUsuariosPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Usuários</h1>
+      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Usuários</h1>
 
       {/* Filter */}
       <div className="mb-4 flex gap-2">
@@ -97,7 +97,7 @@ export default function AdminUsuariosPage() {
           <button
             key={val}
             onClick={() => { setFilter(val); load(val); }}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === val ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === val ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"}`}
           >
             {label}
           </button>

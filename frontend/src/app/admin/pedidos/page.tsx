@@ -12,11 +12,11 @@ const STATUS_OPTIONS: OrderStatus[] = [
 ];
 
 const STATUS_COLORS: Record<OrderStatus, string> = {
-  pending: "bg-yellow-100 text-yellow-800",
-  confirmed: "bg-blue-100 text-blue-800",
-  shipped: "bg-purple-100 text-purple-800",
-  delivered: "bg-green-100 text-green-800",
-  cancelled: "bg-red-100 text-red-800",
+  pending: "bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300",
+  confirmed: "bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300",
+  shipped: "bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300",
+  delivered: "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300",
+  cancelled: "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300",
 };
 
 export default function AdminPedidosPage() {
@@ -63,8 +63,8 @@ export default function AdminPedidosPage() {
       header: "Cliente",
       render: (o: Order) => (
         <div>
-          <p className="font-medium text-gray-900">{o.user_username}</p>
-          <p className="text-xs text-gray-400">{o.user_email}</p>
+          <p className="font-medium text-gray-900 dark:text-gray-100">{o.user_username}</p>
+          <p className="text-xs text-gray-400 dark:text-gray-500">{o.user_email}</p>
         </div>
       ),
     },
@@ -72,7 +72,7 @@ export default function AdminPedidosPage() {
       key: "created_at",
       header: "Data",
       render: (o: Order) => (
-        <span className="text-sm text-gray-600">
+        <span className="text-sm text-gray-600 dark:text-gray-400">
           {new Date(o.created_at).toLocaleDateString("pt-BR")}
         </span>
       ),
@@ -90,7 +90,7 @@ export default function AdminPedidosPage() {
       key: "payment_status",
       header: "Pagamento",
       render: (o: Order) => (
-        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${o.payment_status === "paid" ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"}`}>
+        <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${o.payment_status === "paid" ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300" : "bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-400"}`}>
           {PAYMENT_STATUS_LABELS[o.payment_status]}
         </span>
       ),
@@ -114,13 +114,13 @@ export default function AdminPedidosPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-2xl font-bold text-gray-900">Pedidos</h1>
+      <h1 className="mb-6 text-2xl font-bold text-gray-900 dark:text-white">Pedidos</h1>
 
       {/* Filter tabs */}
       <div className="mb-4 flex flex-wrap gap-2">
         <button
           onClick={() => handleFilterChange("")}
-          className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === "" ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+          className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === "" ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"}`}
         >
           Todos
         </button>
@@ -128,7 +128,7 @@ export default function AdminPedidosPage() {
           <button
             key={s}
             onClick={() => handleFilterChange(s)}
-            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === s ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-700 hover:bg-gray-200"}`}
+            className={`rounded-full px-4 py-1.5 text-sm font-medium ${filter === s ? "bg-blue-600 text-white" : "bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600"}`}
           >
             {ORDER_STATUS_LABELS[s]}
           </button>

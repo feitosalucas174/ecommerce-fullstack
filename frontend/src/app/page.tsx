@@ -115,15 +115,15 @@ export default function HomePage() {
         </section>
 
         {/* ── Perks bar ─────────────────────────────────────── */}
-        <section className="border-b bg-white">
+        <section className="border-b bg-white dark:bg-gray-900 dark:border-gray-800">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
-            <div className="grid grid-cols-2 divide-x divide-y divide-gray-100 sm:grid-cols-4 sm:divide-y-0">
+            <div className="grid grid-cols-2 divide-x divide-y divide-gray-100 dark:divide-gray-700/50 sm:grid-cols-4 sm:divide-y-0">
               {PERKS.map((p) => (
                 <div key={p.title} className="flex items-center gap-3 px-6 py-5">
                   <span className="text-2xl">{p.icon}</span>
                   <div>
-                    <p className="text-sm font-semibold text-gray-900">{p.title}</p>
-                    <p className="text-xs text-gray-500">{p.desc}</p>
+                    <p className="text-sm font-semibold text-gray-900 dark:text-white">{p.title}</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">{p.desc}</p>
                   </div>
                 </div>
               ))}
@@ -136,9 +136,9 @@ export default function HomePage() {
           <div className="mb-8 flex items-end justify-between">
             <div>
               <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Navegue por</p>
-              <h2 className="mt-1 text-2xl font-black text-gray-900">Categorias</h2>
+              <h2 className="mt-1 text-2xl font-black text-gray-900 dark:text-white">Categorias</h2>
             </div>
-            <Link href="/produtos" className="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">
+            <Link href="/produtos" className="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
               Ver todos →
             </Link>
           </div>
@@ -148,12 +148,12 @@ export default function HomePage() {
               <Link
                 key={cat.value}
                 href={`/produtos?categoria=${cat.value}`}
-                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-gray-100 bg-white p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 hover:shadow-md"
+                className="group flex flex-col items-center gap-2.5 rounded-2xl border border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 p-5 text-center shadow-sm transition-all hover:-translate-y-1 hover:border-blue-200 dark:hover:border-blue-600 hover:shadow-md"
               >
                 <span className="text-3xl transition-transform duration-300 group-hover:scale-110">
                   {cat.emoji}
                 </span>
-                <span className="text-xs font-semibold text-gray-700 group-hover:text-blue-600 transition-colors">
+                <span className="text-xs font-semibold text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                   {CATEGORY_LABELS[cat.value]}
                 </span>
               </Link>
@@ -162,14 +162,14 @@ export default function HomePage() {
         </section>
 
         {/* ── Featured products ─────────────────────────────── */}
-        <section className="bg-gray-50/50 py-14">
+        <section className="bg-gray-50/50 dark:bg-gray-900/50 py-14">
           <div className="mx-auto max-w-7xl px-4 sm:px-6">
             <div className="mb-8 flex items-end justify-between">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-wider text-blue-600">Selecionados</p>
-                <h2 className="mt-1 text-2xl font-black text-gray-900">Produtos em Destaque</h2>
+                <h2 className="mt-1 text-2xl font-black text-gray-900 dark:text-white">Produtos em Destaque</h2>
               </div>
-              <Link href="/produtos" className="rounded-lg border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-600 hover:bg-gray-50 transition-colors shadow-sm">
+              <Link href="/produtos" className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-2 text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors shadow-sm">
                 Ver todos
               </Link>
             </div>
@@ -177,7 +177,7 @@ export default function HomePage() {
             {isLoading ? (
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                 {Array.from({ length: 8 }).map((_, i) => (
-                  <div key={i} className="aspect-[3/4] animate-pulse rounded-2xl bg-gray-200" />
+                  <div key={i} className="aspect-[3/4] animate-pulse rounded-2xl bg-gray-200 dark:bg-gray-700" />
                 ))}
               </div>
             ) : (
@@ -197,7 +197,7 @@ export default function HomePage() {
             <div className="mt-10 text-center">
               <Link
                 href="/produtos"
-                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-8 py-3 text-sm font-semibold text-gray-700 shadow-sm hover:border-gray-300 hover:shadow-md transition-all"
+                className="inline-flex items-center gap-2 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-8 py-3 text-sm font-semibold text-gray-700 dark:text-gray-300 shadow-sm hover:border-gray-300 dark:hover:border-gray-600 hover:shadow-md transition-all"
               >
                 Ver todos os produtos
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -258,8 +258,8 @@ export default function HomePage() {
           <Button type="submit" isLoading={loginLoading} className="w-full">
             Entrar
           </Button>
-          <div className="rounded-xl bg-blue-50 p-3 text-center text-xs text-gray-600">
-            Demo: <span className="font-semibold text-gray-800">admin</span> / <span className="font-semibold text-gray-800">admin123</span>
+          <div className="rounded-xl bg-blue-50 dark:bg-blue-900/20 p-3 text-center text-xs text-gray-600 dark:text-gray-400">
+            Demo: <span className="font-semibold text-gray-800 dark:text-gray-200">admin</span> / <span className="font-semibold text-gray-800 dark:text-gray-200">admin123</span>
           </div>
         </form>
       </Modal>
