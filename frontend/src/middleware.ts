@@ -22,7 +22,8 @@ export function middleware(request: NextRequest) {
 
   if (isAdmin && userCookie) {
     try {
-      const user = JSON.parse(userCookie);
+      // Cookie is URI-encoded before being set
+      const user = JSON.parse(decodeURIComponent(userCookie));
       if (user.role !== "admin") {
         return NextResponse.redirect(new URL("/", request.url));
       }

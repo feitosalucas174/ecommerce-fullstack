@@ -36,12 +36,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Helpers para sincronizar cookies (lidos pelo middleware) com localStorage
+  const setCookies = (access: string, user: User) => {
+    const expires = new Date(Date.now() + 60 * 60 * 1000).toUTCString(); // 1h
+    document.cookie = `access_token=${access}; path=/; expires=${expires}; SameSite=Lax`;
+    document.cookie = `user=${encodeURIComponent(JSON.stringify(user))}; path=/; expires=${expires}; SameSite=Lax`;
+  };
+
+  const clearCookies = () => {
+    document.cookie = "access_token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    document.cookie = "user=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";
+  };
+
   // Restore session from localStorage on mount
   useEffect(() => {
     const stored = localStorage.getItem("user");
-    if (stored) {
+    const access = localStorage.getItem("access_token");
+    if (stored && access) {
       try {
-        setUser(JSON.parse(stored));
+        const parsedUser = JSON.parse(stored);
+        setUser(parsedUser);
+        setCookies(access, parsedUser); // sync cookie for middleware
       } catch {
         localStorage.removeItem("user");
       }
@@ -54,6 +69,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("access_token", data.access);
     localStorage.setItem("refresh_token", data.refresh);
     localStorage.setItem("user", JSON.stringify(data.user));
+    setCookies(data.access, data.user);
     setUser(data.user);
   }, []);
 
@@ -65,6 +81,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem("access_token");
     localStorage.removeItem("refresh_token");
     localStorage.removeItem("user");
+    clearCookies();
     setUser(null);
   }, []);
 
