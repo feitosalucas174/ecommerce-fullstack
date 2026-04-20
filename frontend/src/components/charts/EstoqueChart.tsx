@@ -36,6 +36,8 @@ export function EstoqueChart({ data }: EstoqueChartProps) {
         <YAxis tick={{ fontSize: 11, fill: isDark ? "#9ca3af" : "#6b7280" }} />
         <Tooltip
           contentStyle={{ backgroundColor: isDark ? "#1f2937" : "#fff", border: `1px solid ${isDark ? "#374151" : "#e5e7eb"}`, borderRadius: "8px", color: isDark ? "#f3f4f6" : "#111827" }}
+          labelStyle={{ color: isDark ? "#f3f4f6" : "#111827" }}
+          itemStyle={{ color: isDark ? "#f3f4f6" : "#111827" }}
           formatter={(value: number, name: string) =>
             name === "receita"
               ? [`R$ ${value.toFixed(2).replace(".", ",")}`, "Receita"]

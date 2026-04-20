@@ -12,28 +12,23 @@ interface ThemeContextValue {
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Start with "light" for SSR safety; useEffect will sync from the DOM
+  // (the anti-flash inline script in layout.tsx already set the correct class)
   const [theme, setTheme] = useState<Theme>("light");
 
-  // Read preference on mount (after the inline script already set the class)
+  // Read the class that the inline script applied — no DOM mutation here,
+  // so StrictMode double-invocations are harmless
   useEffect(() => {
-    const stored = localStorage.getItem("theme") as Theme | null;
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial = stored ?? (prefersDark ? "dark" : "light");
-    setTheme(initial);
-    applyTheme(initial);
+    setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
   }, []);
 
-  const applyTheme = (t: Theme) => {
-    document.documentElement.classList.toggle("dark", t === "dark");
-    localStorage.setItem("theme", t);
-  };
-
+  // Toggle: manipulate DOM and localStorage directly alongside state
+  // so there is no useEffect that could undo the class on re-render
   const toggle = () => {
-    setTheme((prev) => {
-      const next = prev === "light" ? "dark" : "light";
-      applyTheme(next);
-      return next;
-    });
+    const next: Theme = theme === "light" ? "dark" : "light";
+    document.documentElement.classList.toggle("dark", next === "dark");
+    localStorage.setItem("theme", next);
+    setTheme(next);
   };
 
   return (

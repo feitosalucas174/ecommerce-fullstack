@@ -85,7 +85,7 @@ api.interceptors.response.use(
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("user");
-        window.location.href = "/";
+        // Don't force-navigate here — let each caller or AuthContext handle it
         return Promise.reject(refreshError);
       } finally {
         isRefreshing = false;

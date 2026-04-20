@@ -9,6 +9,7 @@ import React, {
 } from "react";
 import { User } from "@/types";
 import api from "@/services/api";
+import { LoginModal } from "@/components/LoginModal";
 
 interface AuthContextValue {
   user: User | null;
@@ -17,6 +18,7 @@ interface AuthContextValue {
   register: (data: RegisterPayload) => Promise<void>;
   logout: () => void;
   isAdmin: boolean;
+  openLoginModal: () => void;
 }
 
 interface RegisterPayload {
@@ -35,6 +37,9 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+
+  const openLoginModal = useCallback(() => setLoginModalOpen(true), []);
 
   // Helpers para sincronizar cookies (lidos pelo middleware) com localStorage
   const setCookies = (access: string, user: User) => {
@@ -88,8 +93,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const isAdmin = user?.role === "admin";
 
   return (
-    <AuthContext.Provider value={{ user, isLoading, login, register, logout, isAdmin }}>
+    <AuthContext.Provider value={{ user, isLoading, login, register, logout, isAdmin, openLoginModal }}>
       {children}
+      <LoginModal
+        isOpen={loginModalOpen}
+        onClose={() => setLoginModalOpen(false)}
+        onLogin={login}
+      />
     </AuthContext.Provider>
   );
 }

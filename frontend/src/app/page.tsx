@@ -1,14 +1,10 @@
 "use client";
 
-import { useState, useEffect, FormEvent } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ProdutoCard } from "@/components/produto/ProdutoCard";
-import { Modal } from "@/components/ui/Modal";
-import { Input } from "@/components/ui/Input";
-import { Button } from "@/components/ui/Button";
 import { Product, CATEGORY_LABELS, Category } from "@/types";
 import { useAuth } from "@/contexts/AuthContext";
 import api from "@/services/api";
@@ -33,10 +29,7 @@ const PERKS = [
 export default function HomePage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [loginOpen, setLoginOpen] = useState(false);
-  const [loginForm, setLoginForm] = useState({ username: "", password: "" });
-  const [loginLoading, setLoginLoading] = useState(false);
-  const { login, user } = useAuth();
+  const { user, openLoginModal } = useAuth();
 
   useEffect(() => {
     api.get("/products/?ordering=-created_at")
@@ -44,20 +37,6 @@ export default function HomePage() {
       .catch(() => toast.error("Erro ao carregar produtos"))
       .finally(() => setIsLoading(false));
   }, []);
-
-  const handleLogin = async (e: FormEvent) => {
-    e.preventDefault();
-    setLoginLoading(true);
-    try {
-      await login(loginForm.username, loginForm.password);
-      setLoginOpen(false);
-      toast.success("Bem-vindo de volta!");
-    } catch {
-      toast.error("Usuário ou senha inválidos.");
-    } finally {
-      setLoginLoading(false);
-    }
-  };
 
   return (
     <>
@@ -103,7 +82,7 @@ export default function HomePage() {
                 </Link>
                 {!user && (
                   <button
-                    onClick={() => setLoginOpen(true)}
+                    onClick={openLoginModal}
                     className="inline-flex items-center rounded-xl border border-white/20 px-8 py-3.5 text-base font-semibold text-white hover:bg-white/10 transition-colors"
                   >
                     Fazer login
@@ -236,33 +215,6 @@ export default function HomePage() {
 
       </main>
       <Footer />
-
-      {/* ── Login Modal ───────────────────────────────────── */}
-      <Modal isOpen={loginOpen} onClose={() => setLoginOpen(false)} title="Entrar na conta">
-        <form onSubmit={handleLogin} className="space-y-4">
-          <Input
-            label="Usuário"
-            value={loginForm.username}
-            onChange={(e) => setLoginForm((p) => ({ ...p, username: e.target.value }))}
-            placeholder="admin"
-            required
-          />
-          <Input
-            label="Senha"
-            type="password"
-            value={loginForm.password}
-            onChange={(e) => setLoginForm((p) => ({ ...p, password: e.target.value }))}
-            placeholder="••••••"
-            required
-          />
-          <Button type="submit" isLoading={loginLoading} className="w-full">
-            Entrar
-          </Button>
-          <div className="rounded-xl bg-blue-50 dark:bg-blue-900/20 p-3 text-center text-xs text-gray-600 dark:text-gray-400">
-            Demo: <span className="font-semibold text-gray-800 dark:text-gray-200">admin</span> / <span className="font-semibold text-gray-800 dark:text-gray-200">admin123</span>
-          </div>
-        </form>
-      </Modal>
     </>
   );
 }

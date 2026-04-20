@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 // Routes that require authentication
-const PROTECTED_ROUTES = ["/pedidos", "/checkout"];
+const PROTECTED_ROUTES = ["/pedidos"];
 // Routes that require admin role
 const ADMIN_ROUTES = ["/admin"];
 

@@ -5,6 +5,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { CarrinhoProvider } from "@/contexts/CarrinhoContext";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "react-hot-toast";
+import ChatbotWidget from "@/components/ChatbotWidget";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <AuthProvider>
             <CarrinhoProvider>
               {children}
+              <ChatbotWidget />
               <Toaster
                 position="top-right"
                 toastOptions={{

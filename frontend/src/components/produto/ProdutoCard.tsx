@@ -76,7 +76,7 @@ export function ProdutoCard({ product }: ProdutoCardProps) {
       {/* Content */}
       <div className="flex flex-1 flex-col p-4">
         <Link href={`/produtos/${product.id}`} className="block">
-          <h3 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-gray-100 transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 leading-snug">
+          <h3 className="line-clamp-2 text-sm font-semibold text-gray-900 dark:text-white transition-colors group-hover:text-blue-600 dark:group-hover:text-blue-400 leading-snug">
             {product.name}
           </h3>
         </Link>

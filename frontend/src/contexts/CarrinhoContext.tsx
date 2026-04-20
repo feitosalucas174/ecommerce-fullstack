@@ -43,23 +43,27 @@ export function CarrinhoProvider({ children }: { children: React.ReactNode }) {
   }, [items]);
 
   const addItem = useCallback((product: Product, quantity = 1) => {
-    setItems((prev) => {
-      const existing = prev.find((i) => i.product.id === product.id);
-      if (existing) {
-        const newQty = existing.quantity + quantity;
-        if (newQty > product.stock_quantity) {
-          toast.error("Quantidade solicitada excede o estoque disponível.");
-          return prev;
-        }
-        toast.success(`${product.name} atualizado no carrinho!`);
-        return prev.map((i) =>
-          i.product.id === product.id ? { ...i, quantity: newQty } : i
-        );
+    // Read current state to decide the toast message BEFORE calling setItems.
+    // Toast calls must never live inside a setState updater: in StrictMode
+    // React invokes updaters twice to detect side effects, causing double toasts.
+    const existing = items.find((i) => i.product.id === product.id);
+    if (existing) {
+      const newQty = existing.quantity + quantity;
+      if (newQty > product.stock_quantity) {
+        toast.error("Quantidade solicitada excede o estoque disponível.");
+        return;
       }
+      toast.success(`${product.name} atualizado no carrinho!`);
+      setItems((prev) =>
+        prev.map((i) =>
+          i.product.id === product.id ? { ...i, quantity: newQty } : i
+        )
+      );
+    } else {
       toast.success(`${product.name} adicionado ao carrinho!`);
-      return [...prev, { product, quantity }];
-    });
-  }, []);
+      setItems((prev) => [...prev, { product, quantity }]);
+    }
+  }, [items]);
 
   const removeItem = useCallback((productId: number) => {
     setItems((prev) => prev.filter((i) => i.product.id !== productId));

@@ -142,7 +142,10 @@ SIMPLE_JWT = {
     "AUTH_HEADER_TYPES": ("Bearer",),
 }
 
-# CORS Configuration
+# CORS Configuration — allow any localhost port for local dev
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost:\d+$",
+]
 CORS_ALLOWED_ORIGINS = os.getenv(
     "CORS_ALLOWED_ORIGINS", "http://localhost:3000"
 ).split(",")
